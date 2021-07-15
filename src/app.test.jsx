@@ -1,4 +1,4 @@
-import React, { render, screen } from '@testing-library/react';
+import React, { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import App from './App';
@@ -15,6 +15,11 @@ test('button initial color is red and text is "change to blue"', () => {
   expect(button).toHaveStyle({ backgroundColor: 'red' });
 });
 
-test('Buttons turns blue when clicked', () => {
+test('Button turns blue when clicked', () => {
+  render(<App />);
+  let button = screen.getByRole('button', { name: /change to blue/i });
+  fireEvent.click(button);
+  button = screen.getByRole('button', { name: /change to red/i });
 
+  expect(button).toHaveStyle({ backgroundColor: 'blue' });
 });
